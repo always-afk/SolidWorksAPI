@@ -47,16 +47,23 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
             swModel.SketchManager.CreateLine(0.01, 0.01, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[0], 0.01, 0);
             swModel.SketchManager.CreateArc(0.04, 0.03, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[0], 0.01, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[1], 0.01, 0, 1);
             swModel.SketchManager.CreateLine(GetPointX(0.025, 0.04, 0.03, 0.01)[1], 0.01, 0, 0.075, 0.01, 0);
-            GetTangentXY(0.01, 0.095, 0.025, 0.075, 0.01);
-            //swModel.SketchManager.CreateArc(0.095, 0.025, 0, 0.105, 0.025, 0, GetPointX(0.01, ))
+            //GetTangentXY(0.01, 0.095, 0.025, 0.075, 0.01);
+            //var arc = swModel.SketchManager.CreateArc(0.095, 0.025, 0, 0.105, 0.025, 0, 0.075, 0.025, 0, 1);
+
+            //var line = swModel.SketchManager.CreateLine();
+            //var arc = swModel.SketchManager.CreateTangentArc(0.105, 0.025, 0, 0.075, 0.025, 0, 2);
+            //arc.Select(true);
+            //line.Select(true);
             //swModel.SketchManager.CreateLine
+            swModel.SketchManager.CreateArc(0.095, 0.025, 0, 0.105, 0.025, 0, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[0] + 0.075, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[1] + 0.01, 0, 1);
+            swModel.SketchManager.CreateLine(0.075, 0.01, 0, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[0] + 0.075, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[1] + 0.01, 0);
         }
 
-        double[] GetTangentXY(double r, double xc, double yc, double xl, double yl)
+        double[] GetTangentXY(double r, double angle, double xc, double yc, double xl, double yl)
         {
             double dist = Math.Sqrt(Math.Pow(xc - xl, 2.0) + Math.Pow(yc - yl, 2.0));
-            double l2 = Math.Pow(dist, 2.0) - Math.Pow(r, 2.0);
-            double[] res = { };
+            double l = Math.Sqrt(Math.Pow(dist, 2.0) - Math.Pow(r, 2.0));
+            double[] res = { l * Math.Cos(angle * Math.PI / 180), l * Math.Sin(angle * Math.PI / 180) };
             return res;
         }
 
