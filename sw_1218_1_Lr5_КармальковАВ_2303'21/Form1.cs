@@ -26,8 +26,28 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 
         void buttonDrawAll_Click(object sender, EventArgs e)
         {
-            
+            if (!GetSolidworks())
+            {
+                return;
+            }
+
+            swModel.SketchManager.CreateLine(0.01, 0.01, 0, 0.01, 0.02, 0);
+            swModel.SketchManager.CreateLine(0.01, 0.04, 0, 0.01, 0.05, 0);
+            swModel.SketchManager.CreateLine(0.01, 0.02, 0, 0.04, 0.02, 0);
+            swModel.SketchManager.CreateLine(0.01, 0.04, 0, 0.04, 0.04, 0);
+            swModel.SketchManager.CreateLine(0.04, 0.02, 0, GetPointX(0.015, 0.04, 0.03, 0.02)[1], 0.02, 0);
+            swModel.SketchManager.CreateLine(0.04, 0.04, 0, GetPointX(0.015, 0.04, 0.03, 0.04)[1], 0.04, 0);
+            swModel.SketchManager.CreateArc(0.04, 0.03, 0, GetPointX(0.015, 0.04, 0.03, 0.02)[1], 0.02, 0, GetPointX(0.015, 0.04, 0.03, 0.04)[1], 0.04, 0, 1);
         }
+
+        double[] GetPointX(double distance, double x, double y, double y1)
+        {
+            
+            double l = Math.Sqrt(Math.Pow(distance, 2.0) - Math.Pow(Math.Abs(y - y1), 2.0));
+            double[] resX = { x - l, x + l};
+            return resX;
+        }
+
 
         private Boolean GetSolidworks()
         {

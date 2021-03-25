@@ -44,6 +44,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
             this.button1.TabIndex = 0;
             this.button1.Text = "DrawAll";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.buttonDrawAll_Click);
             // 
             // button2
             // 
