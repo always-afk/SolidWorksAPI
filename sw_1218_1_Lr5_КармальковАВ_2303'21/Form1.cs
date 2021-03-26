@@ -19,8 +19,10 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
         ModelDoc2 swModel;
         SketchManager swSketchManager;
         SelectionMgr swSelMgr;
+        int count;
         public Form1()
         {
+            count = 0;
             InitializeComponent();
         }
 
@@ -118,6 +120,83 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
             }
 
             return true;
+        }
+
+        private void buttonDrawByStep_Click(object sender, EventArgs e)
+        {
+            if (!GetSolidworks())
+            {
+                return;
+            }
+
+            switch (count)
+            {
+                case 0:
+                    swModel.SketchManager.CreateLine(Sizes.X0, Sizes.X0, 0, Sizes.X0, Sizes.Y0 + Sizes.L1, 0);
+                    break;
+                case 1:
+                    swModel.SketchManager.CreateLine(Sizes.X0, (Sizes.Y0 + Sizes.L1 + Sizes.L2), 0, Sizes.X0, (Sizes.Y0 + Sizes.L1 + Sizes.L2 + Sizes.L1), 0);
+                    break;
+                case 2:
+                    swModel.SketchManager.CreateLine(Sizes.X0, Sizes.Y0 + Sizes.L1, 0, Sizes.X0 + Sizes.L3, Sizes.Y0 + Sizes.L1, 0);
+                    break;
+                case 3:
+                    swModel.SketchManager.CreateLine(Sizes.X0, Sizes.Y0 + Sizes.L1 + Sizes.L2, 0, Sizes.X0 + Sizes.L3, Sizes.Y0 + Sizes.L1 + Sizes.L2, 0);
+                    break;
+                case 4:
+                    swModel.SketchManager.CreateLine(Sizes.X0 + Sizes.L3, Sizes.Y0 + Sizes.L1, 0, GetPointX(Sizes.R1, Sizes.X0 + Sizes.L3, Sizes.Y0 + Sizes.L2, Sizes.Y0 + Sizes.L1)[1], Sizes.Y0 + Sizes.L1, 0);
+                    break;
+                case 5:
+                    swModel.SketchManager.CreateLine(Sizes.X0 + Sizes.L3, (Sizes.Y0 + Sizes.L1 + Sizes.L2), 0, GetPointX(Sizes.R1, Sizes.X0 + Sizes.L3, Sizes.Y0 + Sizes.L2, Sizes.Y0 + Sizes.L1)[1], (Sizes.Y0 + Sizes.L1 + Sizes.L2), 0);
+                    break;
+                case 6:
+                    swModel.SketchManager.CreateArc(Sizes.X0 + Sizes.L3, Sizes.Y0 + Sizes.L2, 0, GetPointX(Sizes.R1, Sizes.X0 + Sizes.L3, Sizes.Y0 + Sizes.L2, Sizes.Y0 + Sizes.L1)[1], Sizes.Y0 + Sizes.L1, 0, GetPointX(Sizes.R1, Sizes.X0 + Sizes.L3, Sizes.Y0 + Sizes.L2, (Sizes.Y0 + Sizes.L1 + Sizes.L2))[1], Sizes.Y0 + Sizes.L1 + Sizes.L2, 0, 1);
+                    break;
+                case 7:
+                    swModel.SketchManager.CreateLine(0.01, 0.05, 0, GetPointX(0.025, 0.04, 0.03, 0.05)[0], 0.05, 0);
+                    break;
+                case 8:
+                    swModel.SketchManager.CreateArc(0.04, 0.03, 0, GetPointX(0.025, 0.04, 0.03, 0.05)[0], 0.05, 0, GetPointX(0.025, 0.04, 0.03, 0.04)[1], 0.04, 0, -1);
+                    break;
+                case 9:
+                    swModel.SketchManager.CreateLine(GetPointX(0.025, 0.04, 0.03, 0.04)[1], 0.04, 0, 0.11, 0.04, 0);
+                    break;
+                case 10:
+                    swModel.SketchManager.CreateLine(0.11, 0.04, 0, 0.11, 0.01, 0);
+                    break;
+                case 11:
+                    swModel.SketchManager.CreateLine(0.11, 0.01, 0, 0.105, 0.01, 0);
+                    break;
+                case 12:
+                    swModel.SketchManager.CreateLine(0.105, 0.01, 0, 0.105, 0.025, 0);
+                    break;
+                case 13:
+                    swModel.SketchManager.CreateLine(0.01, 0.01, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[0], 0.01, 0);
+                    break;
+                case 14:
+                    swModel.SketchManager.CreateArc(0.04, 0.03, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[0], 0.01, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[1], 0.01, 0, 1);
+                    break;
+                case 15:
+                    swModel.SketchManager.CreateLine(GetPointX(0.025, 0.04, 0.03, 0.01)[1], 0.01, 0, 0.075, 0.01, 0);
+                    break;
+                case 16:
+                    swModel.SketchManager.CreateArc(0.095, 0.025, 0, 0.105, 0.025, 0, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[0] + 0.075, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[1] + 0.01, 0, 1);
+                    break;
+                case 17:
+                    swModel.SketchManager.CreateLine(0.075, 0.01, 0, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[0] + 0.075, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[1] + 0.01, 0);
+                    break;
+            }
+
+            if (count >= 17)
+            {
+                button1.Enabled = true;
+                count = 0;
+            }
+            else
+            {
+                button1.Enabled = false;
+                count += 1;
+            }
         }
     }
 }
