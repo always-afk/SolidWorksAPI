@@ -20,9 +20,11 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
         SketchManager swSketchManager;
         SelectionMgr swSelMgr;
         int count;
+        Point StartPoint;
         public Form1()
         {
             count = 0;
+            StartPoint = new Point(0.01, 0.01, 0);
             InitializeComponent();
         }
 
@@ -32,22 +34,55 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
             {
                 return;
             }
-            swModel.SketchManager.CreateLine(0.01, 0.01, 0, 0.01, 0.02, 0);
-            swModel.SketchManager.CreateLine(0.01, (0.01 + 0.01 + 0.02), 0, 0.01, (0.01 + 0.01 + 0.02 + 0.01), 0);
-            swModel.SketchManager.CreateLine(0.01, 0.01 + 0.01, 0, GetPointX(0.015, 0.01 + 0.03, 0.01 + 0.02, 0.01 + 0.01)[1], 0.01 + 0.01, 0);
-            swModel.SketchManager.CreateLine(0.01, (0.01 + 0.01 + 0.02), 0, GetPointX(0.015, 0.01 + 0.03, 0.01 + 0.02, 0.01 + 0.01)[1], (0.01 + 0.01 + 0.02), 0);
-            swModel.SketchManager.CreateArc(0.01 + 0.03, 0.01 + 0.02, 0, GetPointX(0.015, 0.01 + 0.03, 0.01 + 0.02, 0.01 + 0.01)[1], 0.01 + 0.01, 0, GetPointX(0.015, 0.01 + 0.03, 0.01 + 0.02, (0.01 + 0.01 + 0.02))[1], 0.01 + 0.01 + 0.02, 0, 1);
-            swModel.SketchManager.CreateLine(0.01, 0.05, 0, GetPointX(0.025, 0.04, 0.03, 0.05)[0], 0.05, 0);
-            swModel.SketchManager.CreateArc(0.04, 0.03, 0, GetPointX(0.025, 0.04, 0.03, 0.05)[0], 0.05, 0, GetPointX(0.025, 0.04, 0.03, 0.04)[1], 0.04, 0, -1);
-            swModel.SketchManager.CreateLine(GetPointX(0.025, 0.04, 0.03, 0.04)[1], 0.04, 0, 0.11, 0.04, 0);
-            swModel.SketchManager.CreateLine(0.11, 0.04, 0, 0.11, 0.01, 0);
-            swModel.SketchManager.CreateLine(0.11, 0.01, 0, 0.105, 0.01, 0);
-            swModel.SketchManager.CreateLine(0.105, 0.01, 0, 0.105, 0.025, 0);
-            swModel.SketchManager.CreateLine(0.01, 0.01, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[0], 0.01, 0);
-            swModel.SketchManager.CreateArc(0.04, 0.03, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[0], 0.01, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[1], 0.01, 0, 1);
-            swModel.SketchManager.CreateLine(GetPointX(0.025, 0.04, 0.03, 0.01)[1], 0.01, 0, 0.075, 0.01, 0);
-            swModel.SketchManager.CreateArc(0.095, 0.025, 0, 0.105, 0.025, 0, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[0] + 0.075, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[1] + 0.01, 0, 1);
-            swModel.SketchManager.CreateLine(0.075, 0.01, 0, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[0] + 0.075, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[1] + 0.01, 0);
+
+            double x1 = StartPoint.X;
+            double y1 = StartPoint.Y;
+            double x2 = StartPoint.X;
+            double y2 = StartPoint.Y + Sizes.L1 / 2 - Sizes.L2 / 2;
+
+            swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
+
+            x1 = x2;
+            y1 = y2;
+            x2 = GetPointX(Sizes.R1, StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Y + Sizes.L1 / 2 - Sizes.L2 / 2)[1];
+            y2 = StartPoint.Y + Sizes.L1 / 2 - Sizes.L2 / 2;
+
+            swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
+
+            x1 = x2;
+            y1 = y2;
+            x2 = GetPointX(Sizes.R1, StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Y + Sizes.L1 - ((Sizes.L1 - Sizes.L2) / 2))[1];
+            y2 = StartPoint.Y + Sizes.L1 / 2 + Sizes.L2 / 2;
+
+            swModel.SketchManager.CreateArc(StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Z, x1, y1, StartPoint.Z, x2, y2, StartPoint.Z, 1);
+
+            x1 = x2;
+            y1 = y2;
+            x2 = StartPoint.X;
+            y2 = StartPoint.Y + Sizes.L1 / 2 + Sizes.L2 / 2;
+
+            swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
+
+            x1 = x2;
+            y1 = y2;
+            x2 = StartPoint.X;
+            y2 = StartPoint.Y + Sizes.L1;
+
+            swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
+
+            x1 = x2;
+            y1 = y2;
+            x2 = GetPointX(Sizes.R2, StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Y + Sizes.L1)[0];
+            y2 = StartPoint.Y + Sizes.L1;
+
+            swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
+
+            x1 = x2;
+            y1 = y2;
+            x2 = GetPointX(Sizes.R2, StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Y + Sizes.L1)[1];
+            y2 = StartPoint.Y + Sizes.L1 / 2 + Sizes.L2 / 2;
+
+            swModel.SketchManager.CreateArc(StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Z, x1, y1, StartPoint.Z, x2, y2, StartPoint.Z, -1);
         }
 
         double[] GetTangentXY(double r, double angle, double xc, double yc, double xl, double yl)
@@ -118,10 +153,15 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
                 return;
             }
 
+            //int dimToggle = (int)swUserPreferenceToggle_e.swHideShowSketchDimensions;
+            //int dimToggle = 1;
+            //swApp.SetUserPreferenceToggle(dimToggle, false);
+
             switch (count)
             {
                 case 0:
                     swModel.SketchManager.CreateLine(0.01, 0.01, 0, 0.01, 0.01 + 0.01, 0);
+                    swModel.IAddVerticalDimension2(0.005, 0.015, 0);
                     break;
                 case 1:
                     swModel.SketchManager.CreateLine(0.01, (0.01 + 0.01 + 0.02), 0, 0.01, (0.01 + 0.01 + 0.02 + 0.01), 0);
@@ -169,6 +209,8 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
                     swModel.SketchManager.CreateLine(0.075, 0.01, 0, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[0] + 0.075, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[1] + 0.01, 0);
                     break;
             }
+
+            //swApp.SetUserPreferenceToggle(dimToggle, true);
 
             if (count >= 15)
             {
