@@ -31,24 +31,18 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 
         void buttonDrawAll_Click(object sender, EventArgs e)
         {
-            painter.DrawAll();
+            try
+            {
+                painter.StartPoint.X = double.Parse(textBox1.Text);
+                painter.StartPoint.Y = double.Parse(textBox2.Text);
+                painter.DrawAll();
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
-        double[] GetTangentXY(double r, double angle, double xc, double yc, double xl, double yl)
-        {
-            double dist = Math.Sqrt(Math.Pow(xc - xl, 2.0) + Math.Pow(yc - yl, 2.0));
-            double l = Math.Sqrt(Math.Pow(dist, 2.0) - Math.Pow(r, 2.0));
-            double[] res = { l * Math.Cos(angle * Math.PI / 180), l * Math.Sin(angle * Math.PI / 180) };
-            return res;
-        }
-
-        double[] GetPointX(double distance, double x, double y, double y1)
-        {
-            
-            double l = Math.Sqrt(Math.Pow(distance, 2.0) - Math.Pow(Math.Abs(y - y1), 2.0));
-            double[] resX = { x - l, x + l};
-            return resX;
-        }
 
 
         private Boolean GetSolidworks()
@@ -97,17 +91,26 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 
         private void buttonDrawByStep_Click(object sender, EventArgs e)
         {
-            painter.DrawByStep(count);
+            try
+            {
+                painter.StartPoint.X = double.Parse(textBox1.Text);
+                painter.StartPoint.Y = double.Parse(textBox2.Text);
+                painter.DrawByStep(count);
 
-            if (count >= 15)
-            {
-                button1.Enabled = true;
-                count = 0;
+                if (count >= 15)
+                {
+                    button1.Enabled = true;
+                    count = 0;
+                }
+                else
+                {
+                    button1.Enabled = false;
+                    count += 1;
+                }
             }
-            else
+            catch (Exception)
             {
-                button1.Enabled = false;
-                count += 1;
+
             }
         }
 
@@ -115,7 +118,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
         {
             if (!GetSolidworks())
             {
-                return;
+                this.Close();
             }
 
             this.painter = new Painter(swModel, StartPoint);
