@@ -35,54 +35,8 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
                 return;
             }
 
-            double x1 = StartPoint.X;
-            double y1 = StartPoint.Y;
-            double x2 = StartPoint.X;
-            double y2 = StartPoint.Y + Sizes.L1 / 2 - Sizes.L2 / 2;
-
-            swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
-
-            x1 = x2;
-            y1 = y2;
-            x2 = GetPointX(Sizes.R1, StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Y + Sizes.L1 / 2 - Sizes.L2 / 2)[1];
-            y2 = StartPoint.Y + Sizes.L1 / 2 - Sizes.L2 / 2;
-
-            swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
-
-            x1 = x2;
-            y1 = y2;
-            x2 = GetPointX(Sizes.R1, StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Y + Sizes.L1 - ((Sizes.L1 - Sizes.L2) / 2))[1];
-            y2 = StartPoint.Y + Sizes.L1 / 2 + Sizes.L2 / 2;
-
-            swModel.SketchManager.CreateArc(StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Z, x1, y1, StartPoint.Z, x2, y2, StartPoint.Z, 1);
-
-            x1 = x2;
-            y1 = y2;
-            x2 = StartPoint.X;
-            y2 = StartPoint.Y + Sizes.L1 / 2 + Sizes.L2 / 2;
-
-            swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
-
-            x1 = x2;
-            y1 = y2;
-            x2 = StartPoint.X;
-            y2 = StartPoint.Y + Sizes.L1;
-
-            swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
-
-            x1 = x2;
-            y1 = y2;
-            x2 = GetPointX(Sizes.R2, StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Y + Sizes.L1)[0];
-            y2 = StartPoint.Y + Sizes.L1;
-
-            swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
-
-            x1 = x2;
-            y1 = y2;
-            x2 = GetPointX(Sizes.R2, StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Y + Sizes.L1)[1];
-            y2 = StartPoint.Y + Sizes.L1 / 2 + Sizes.L2 / 2;
-
-            swModel.SketchManager.CreateArc(StartPoint.X + Sizes.L4, StartPoint.Y + Sizes.L1 / 2, StartPoint.Z, x1, y1, StartPoint.Z, x2, y2, StartPoint.Z, -1);
+            Painter painter = new Painter(swModel, StartPoint);
+            painter.DrawAll();
         }
 
         double[] GetTangentXY(double r, double angle, double xc, double yc, double xl, double yl)
@@ -157,11 +111,16 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
             //int dimToggle = 1;
             //swApp.SetUserPreferenceToggle(dimToggle, false);
 
+            double x1 = StartPoint.X;
+            double y1 = StartPoint.Y;
+            double x2 = StartPoint.X;
+            double y2 = Math.Round(StartPoint.Y + Sizes.L1 / 2.0 - Sizes.L2 / 2.0, 3);
+
             switch (count)
             {
                 case 0:
                     swModel.SketchManager.CreateLine(0.01, 0.01, 0, 0.01, 0.01 + 0.01, 0);
-                    swModel.IAddVerticalDimension2(0.005, 0.015, 0);
+                    //swModel.IAddVerticalDimension2(0.005, 0.015, 0);
                     break;
                 case 1:
                     swModel.SketchManager.CreateLine(0.01, (0.01 + 0.01 + 0.02), 0, 0.01, (0.01 + 0.01 + 0.02 + 0.01), 0);
