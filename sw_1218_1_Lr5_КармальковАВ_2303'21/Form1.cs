@@ -21,6 +21,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
         SelectionMgr swSelMgr;
         int count;
         Point StartPoint;
+        Painter painter;
         public Form1()
         {
             count = 0;
@@ -30,12 +31,6 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 
         void buttonDrawAll_Click(object sender, EventArgs e)
         {
-            if (!GetSolidworks())
-            {
-                return;
-            }
-
-            Painter painter = new Painter(swModel, StartPoint);
             painter.DrawAll();
         }
 
@@ -102,74 +97,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 
         private void buttonDrawByStep_Click(object sender, EventArgs e)
         {
-            if (!GetSolidworks())
-            {
-                return;
-            }
-
-            //int dimToggle = (int)swUserPreferenceToggle_e.swHideShowSketchDimensions;
-            //int dimToggle = 1;
-            //swApp.SetUserPreferenceToggle(dimToggle, false);
-
-            double x1 = StartPoint.X;
-            double y1 = StartPoint.Y;
-            double x2 = StartPoint.X;
-            double y2 = Math.Round(StartPoint.Y + Sizes.L1 / 2.0 - Sizes.L2 / 2.0, 3);
-
-            switch (count)
-            {
-                case 0:
-                    swModel.SketchManager.CreateLine(0.01, 0.01, 0, 0.01, 0.01 + 0.01, 0);
-                    //swModel.IAddVerticalDimension2(0.005, 0.015, 0);
-                    break;
-                case 1:
-                    swModel.SketchManager.CreateLine(0.01, (0.01 + 0.01 + 0.02), 0, 0.01, (0.01 + 0.01 + 0.02 + 0.01), 0);
-                    break;
-                case 2:
-                    swModel.SketchManager.CreateLine(0.01, 0.01 + 0.01, 0, GetPointX(0.015, 0.01 + 0.03, 0.01 + 0.02, 0.01 + 0.01)[1], 0.01 + 0.01, 0);
-                    break;
-                case 3:
-                    swModel.SketchManager.CreateLine(0.01, (0.01 + 0.01 + 0.02), 0, GetPointX(0.015, 0.01 + 0.03, 0.01 + 0.02, 0.01 + 0.01)[1], (0.01 + 0.01 + 0.02), 0);
-                    break;
-                case 4:
-                    swModel.SketchManager.CreateArc(0.01 + 0.03, 0.01 + 0.02, 0, GetPointX(0.015, 0.01 + 0.03, 0.01 + 0.02, 0.01 + 0.01)[1], 0.01 + 0.01, 0, GetPointX(0.015, 0.01 + 0.03, 0.01 + 0.02, (0.01 + 0.01 + 0.02))[1], 0.01 + 0.01 + 0.02, 0, 1);
-                    break;
-                case 5:
-                    swModel.SketchManager.CreateLine(0.01, 0.05, 0, GetPointX(0.025, 0.04, 0.03, 0.05)[0], 0.05, 0);
-                    break;
-                case 6:
-                    swModel.SketchManager.CreateArc(0.04, 0.03, 0, GetPointX(0.025, 0.04, 0.03, 0.05)[0], 0.05, 0, GetPointX(0.025, 0.04, 0.03, 0.04)[1], 0.04, 0, -1);
-                    break;
-                case 7:
-                    swModel.SketchManager.CreateLine(GetPointX(0.025, 0.04, 0.03, 0.04)[1], 0.04, 0, 0.11, 0.04, 0);
-                    break;
-                case 8:
-                    swModel.SketchManager.CreateLine(0.11, 0.04, 0, 0.11, 0.01, 0);
-                    break;
-                case 9:
-                    swModel.SketchManager.CreateLine(0.11, 0.01, 0, 0.105, 0.01, 0);
-                    break;
-                case 10:
-                    swModel.SketchManager.CreateLine(0.105, 0.01, 0, 0.105, 0.025, 0);
-                    break;
-                case 11:
-                    swModel.SketchManager.CreateLine(0.01, 0.01, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[0], 0.01, 0);
-                    break;
-                case 12:
-                    swModel.SketchManager.CreateArc(0.04, 0.03, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[0], 0.01, 0, GetPointX(0.025, 0.04, 0.03, 0.01)[1], 0.01, 0, 1);
-                    break;
-                case 13:
-                    swModel.SketchManager.CreateLine(GetPointX(0.025, 0.04, 0.03, 0.01)[1], 0.01, 0, 0.075, 0.01, 0);
-                    break;
-                case 14:
-                    swModel.SketchManager.CreateArc(0.095, 0.025, 0, 0.105, 0.025, 0, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[0] + 0.075, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[1] + 0.01, 0, 1);
-                    break;
-                case 15:
-                    swModel.SketchManager.CreateLine(0.075, 0.01, 0, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[0] + 0.075, GetTangentXY(0.01, 60.45, 0.095, 0.025, 0.075, 0.01)[1] + 0.01, 0);
-                    break;
-            }
-
-            //swApp.SetUserPreferenceToggle(dimToggle, true);
+            painter.DrawByStep(count);
 
             if (count >= 15)
             {
@@ -181,6 +109,16 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
                 button1.Enabled = false;
                 count += 1;
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (!GetSolidworks())
+            {
+                return;
+            }
+
+            this.painter = new Painter(swModel, StartPoint);
         }
     }
 }

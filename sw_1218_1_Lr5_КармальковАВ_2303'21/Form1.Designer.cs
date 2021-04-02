@@ -76,6 +76,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
