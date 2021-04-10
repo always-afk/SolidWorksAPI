@@ -31,15 +31,11 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 
         void buttonDrawAll_Click(object sender, EventArgs e)
         {
-            try
+            if (CheckString(textBox1.Text) && CheckString(textBox2.Text))
             {
                 painter.StartPoint.X = double.Parse(textBox1.Text);
                 painter.StartPoint.Y = double.Parse(textBox2.Text);
                 painter.DrawAll();
-            }
-            catch (Exception)
-            {
-
             }
         }
 
@@ -121,7 +117,28 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
                 this.Close();
             }
 
-            this.painter = new Painter(swModel, StartPoint);
+            this.painter = new Painter(swModel, StartPoint, new Sizes());
+        }
+
+        private bool CheckString(String s)
+        {
+            bool res = false;
+            foreach (char e in s)
+            {
+                if (Char.IsDigit(e))
+                {
+                    res = true;
+                }
+                else if (e == ',')
+                {
+                    res = true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return res;
         }
     }
 }

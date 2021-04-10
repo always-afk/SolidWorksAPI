@@ -107,7 +107,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(353, 59);
+            this.textBox2.Location = new System.Drawing.Point(353, 55);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 7;

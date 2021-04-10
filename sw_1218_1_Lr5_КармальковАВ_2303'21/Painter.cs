@@ -14,12 +14,13 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 
         public ModelDoc2 swModel { get; set; }
         public Point StartPoint { get; set; }
-        //public Sizes Sizes { get; set; }
+        public Sizes Sizes { get; set; }
 
-        public Painter (ModelDoc2 model, Point point)
+        public Painter (ModelDoc2 model, Point point, Sizes sizes)
         {
             swModel = model;
             StartPoint = point;
+            Sizes = sizes;
         }
 
         public void DrawAll()
