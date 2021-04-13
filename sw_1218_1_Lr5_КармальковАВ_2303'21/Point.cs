@@ -12,6 +12,13 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
         public double Y { get; set; }
         public double Z { get; set; }
 
+        public Point()
+        {
+            X = 0;
+            Y = 0;
+            Z = 0;
+        }
+
         public Point(double x, double y, double z)
         {
             this.X = x;

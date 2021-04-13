@@ -14,16 +14,29 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 
         public ModelDoc2 swModel { get; set; }
         public Point StartPoint { get; set; }
-        public Sizes Sizes { get; set; }
+        public Sizes2D Sizes { get; set; }
 
-        public Painter (ModelDoc2 model, Point point, Sizes sizes)
+        private Sizes3D Sizes3D { get; set; }
+
+        public Painter (ModelDoc2 model, Point point, Sizes2D sizes)
         {
             swModel = model;
             StartPoint = point;
             Sizes = sizes;
         }
+        public Painter(ModelDoc2 model, Point point, Sizes3D sizes)
+        {
+            if (model is null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
 
-        public void DrawAll()
+            swModel = model;
+            StartPoint = point;
+            Sizes3D = sizes;
+        }
+
+        public void DrawAll2D()
         {
             //1
             x1 = StartPoint.X;
@@ -152,7 +165,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
             swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
         }
 
-        public void DrawByStep(int count)
+        public void DrawByStep2D(int count)
         {
             switch (count)
             {
@@ -283,6 +296,30 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
                     swModel.SketchManager.CreateLine(x1, y1, StartPoint.Z, x2, y2, StartPoint.Z);
                     break;
             }
+        }
+
+        public void DrawAll3D()
+        {
+            //1
+            swModel.Extension.SelectByID2("Front", "PLANE", StartPoint.X, StartPoint.Y, StartPoint.Z, false, 0, null, 0);
+            swModel.SketchManager.InsertSketch(true);
+            swModel.SketchManager.CreateCenterRectangle(StartPoint.X, StartPoint.Y, StartPoint.Z, StartPoint.X + Sizes3D.L1 / 2, StartPoint.Y + Sizes3D.L2 / 2, StartPoint.Z);
+            swModel.FeatureManager.FeatureExtrusion2(true, false, false, 0, 0, Sizes3D.L3, 0.01, false, false, false, false, 0, 0,
+                false, false, false, false, true, true, true, 0, 0, false);
+
+            //2
+            swModel.Extension.SelectByID2("Front", "PLANE", StartPoint.X, StartPoint.Y, StartPoint.Z, false, 0, null, 0);
+            swModel.SketchManager.InsertSketch(true);
+            swModel.SketchManager.CreateCenterRectangle(StartPoint.X + (Sizes3D.L1 - Sizes3D.L3) / 2, StartPoint.Y, StartPoint.Z, StartPoint.X + Sizes3D.L1 / 2, StartPoint.Y + Sizes3D.L4 / 2, StartPoint.Z);
+            swModel.FeatureManager.FeatureExtrusion2(true, false, false, 0, 0, Sizes3D.L6, 0.01, false, false, false, false, 0, 0,
+                false, false, false, false, true, true, true, 0, 0, false);
+
+            //3
+            swModel.Extension.SelectByID2("Right", "PLANE", StartPoint.X + Sizes3D.L1 / 2, StartPoint.Y, StartPoint.Z, false, 0, null, 0);
+            swModel.SketchManager.InsertSketch(true);
+            swModel.SketchManager.CreateLine(StartPoint.X + Sizes3D.R1, StartPoint.Y, StartPoint.Z + Sizes3D.L6, StartPoint.X - Sizes3D.R1, StartPoint.Y, StartPoint.Z + Sizes3D.L6);
+            swModel.SketchManager.CreateArc(StartPoint.X, StartPoint.Y, StartPoint.Z + Sizes3D.L6, StartPoint.X + Sizes3D.R1, StartPoint.Y, StartPoint.Z + Sizes3D.L6, StartPoint.X - Sizes3D.R1, StartPoint.Y, StartPoint.Z + Sizes3D.L6, 0);
+
         }
 
         double[] GetTangentXY(double r, double angle, double xc, double yc, double xl, double yl)

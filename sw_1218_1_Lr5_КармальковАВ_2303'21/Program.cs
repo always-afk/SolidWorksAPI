@@ -16,7 +16,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new StartForm());
         }
     }
 }

@@ -53,6 +53,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
             this.button2.TabIndex = 1;
             this.button2.Text = "3D";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button3D_Clicked);
             // 
             // StartForm
             // 

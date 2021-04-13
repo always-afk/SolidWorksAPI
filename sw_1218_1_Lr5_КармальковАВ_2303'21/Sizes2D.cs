@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 {
-    public class Sizes
+    public class Sizes2D
     {
         public double L1 { get; }
         public double L2 { get; }
@@ -21,7 +21,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
         public double R2 { get; }
         public double R3 { get; }
 
-        public Sizes()
+        public Sizes2D()
         {
              L1 = 0.04;
              L2 = 0.02;
@@ -38,7 +38,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
         }
     
 
-        public Sizes(double l1, double l2, double l3, double l4, double l5, double l6, double l7, double l8, double r1, double r2, double r3)
+        public Sizes2D(double l1, double l2, double l3, double l4, double l5, double l6, double l7, double l8, double r1, double r2, double r3)
         {
             L1 = l1;
             L2 = l2;

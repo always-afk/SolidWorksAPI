@@ -19,7 +19,14 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 
         private void button2D_Click(object sender, EventArgs e)
         {
-            Form1 f = new Form1();
+            Form2D f = new Form2D(this);
+            f.Show();
+        }
+
+        private void button3D_Clicked(object sender, EventArgs e)
+        {
+            Form3D f = new Form3D(this);
+            f.Show();
         }
     }
 }
