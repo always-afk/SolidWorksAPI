@@ -315,11 +315,12 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
                 false, false, false, false, true, true, true, 0, 0, false);
 
             //3
-            swModel.Extension.SelectByID2("Right", "PLANE", StartPoint.X + Sizes3D.L1 / 2, StartPoint.Y, StartPoint.Z, false, 0, null, 0);
+            swModel.Extension.SelectByID2("Right", "RIGHT PLANE", StartPoint.X + Sizes3D.L1 / 2, StartPoint.Y, StartPoint.Z + Sizes3D.L6 / 2, false, 0, null, 0);
             swModel.SketchManager.InsertSketch(true);
-            swModel.SketchManager.CreateLine(StartPoint.X + Sizes3D.R1, StartPoint.Y, StartPoint.Z + Sizes3D.L6, StartPoint.X - Sizes3D.R1, StartPoint.Y, StartPoint.Z + Sizes3D.L6);
-            swModel.SketchManager.CreateArc(StartPoint.X, StartPoint.Y, StartPoint.Z + Sizes3D.L6, StartPoint.X + Sizes3D.R1, StartPoint.Y, StartPoint.Z + Sizes3D.L6, StartPoint.X - Sizes3D.R1, StartPoint.Y, StartPoint.Z + Sizes3D.L6, 0);
-
+            swModel.SketchManager.CreateLine(StartPoint.X - Sizes3D.L6, StartPoint.Y + Sizes3D.R1, 0, StartPoint.X - Sizes3D.L6, StartPoint.Y - Sizes3D.R1, 0);
+            swModel.SketchManager.CreateArc(StartPoint.X - Sizes3D.L6, StartPoint.Y, 0, StartPoint.X - Sizes3D.L6, StartPoint.Y + Sizes3D.R1, 0, StartPoint.X - Sizes3D.L6, StartPoint.Y - Sizes3D.R1, 0, -1);
+            swModel.FeatureManager.FeatureCut3(true, false, false, 1, 0, 0.01, 0.01, false, false, false, false, 0, 0,
+                false, false, false, false, false, true, true, true, true, false, 0, 0, false);
         }
 
         double[] GetTangentXY(double r, double angle, double xc, double yc, double xl, double yl)
