@@ -18,8 +18,9 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
         SldWorks swApp;
         ModelDoc2 swModel;
         Point point;
-        private Painter painter;
+        Painter painter;
         Form f;
+        int count;
         public Form3D()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
         public Form3D(Form f)
         {
             this.f = f;
+            count = 0;
             InitializeComponent();
         }
 
@@ -52,6 +54,18 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
         private void Form3D_FormClosed(object sender, FormClosedEventArgs e)
         {
             f.Visible = true;
+        }
+
+        private void buttonDrawByStep(object sender, EventArgs e)
+        {
+            button1.Enabled = false;
+            painter.DrawByStep3D(count);
+            count += 1;
+            if(count > 4)
+            {
+                count = 0;
+                button1.Enabled = true;
+            }
         }
     }
 }
