@@ -69,7 +69,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (!Checker.GetSolidworks2D(swApp, swModel))
+            if (!Checker.GetSolidworks2D(swApp, out swModel))
             {
                 this.Close();
             }

@@ -11,7 +11,7 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
 {
     public static class Checker
     {
-        public static bool GetSolidworks2D(SldWorks swApp, ModelDoc2 swModel)
+        public static bool GetSolidworks2D(SldWorks swApp, out ModelDoc2 swModel)
         {
             try
             {
@@ -21,12 +21,14 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
             catch
             {
                 // Отображает окно сообщения с заданным текстом
+                swModel = null;
                 return false;
             }
 
             if (swApp.ActiveDoc == null)
             {
                 // Отображает окно сообщения с заданным текстом
+                swModel = null;
                 return false;
             }
 
@@ -39,7 +41,6 @@ namespace sw_1218_1_Lr5_КармальковАВ_2303_21
             {
                 return false;
             }
-
             return true;
         }
 
